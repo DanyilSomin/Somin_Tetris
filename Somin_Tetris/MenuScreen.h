@@ -9,12 +9,10 @@
 #include "Screens.h"
 #include "Button.h"
 
-//const std::map<std::string> diffLevels{ {"Casual", "Low"}, 
-//										{"Low", "Normal"},
-//										{"Normal", "Hard"} };
-//const std::map<std::string> playModes{ "Single", "Two players", "With bot" };
+#include "Timer.h"
 
 constexpr int PLAY_BTN_HEIGHT = 200;
+constexpr int MODE_BTN_HEIGHT = 250;
 
 class MenuScreen : public Screen
 {
@@ -22,8 +20,6 @@ public:
 	MenuScreen();
 
 	virtual GameScreen run(sf::RenderWindow &window);
-
-	void whatever() const;
 
 private:
 	GameScreen m_curScreen{ GameScreen::MENU };

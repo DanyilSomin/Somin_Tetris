@@ -1,9 +1,5 @@
 #include <SFML/Graphics.hpp>
 #include "Screens.h"
-#include "Settings.h"
-
-#include <fstream>
-#include <iostream>
 
 int main()
 {
@@ -22,12 +18,10 @@ int main()
 	screens.push_back(&s);
 
 	//Main loop
-	//while (screen != GameScreen::EXIT)
-	//{
-	//	screen = screens[GameScreen::MENU]->run(mainWindow);
-	//}
-
-	auto test = Settings::getPlayMode();
+	while (screen != GameScreen::EXIT)
+	{
+		screen = screens[GameScreen::MENU]->run(mainWindow);
+	}
 
 	return EXIT_SUCCESS;
 }

@@ -3,28 +3,28 @@
 #include <string>
 #include <memory>
 #include <fstream>
-#include <map>
+#include <vector>
+#include <utility>
 
 #include "json.hpp"
 
 const std::string settingsPath{ "settings.json" };
 
 const std::string initPlayMode{ "Casual" };
-const std::map<std::string, double> playModes  // Second value is acceleration of block speed per minute
+const std::vector<std::pair<std::string, float>> playModes  
+	// Second value is acceleration of block per second
 {
 	{"Casual", 0},
-	{"Easy", 1 / 60},
-	{"Normal", 2 /30},
-	{"Hard", 3 / 60}
+	{"Easy", 0.02 },
+	{"Normal", 0.035 },
+	{"Hard", 0.07}
 };
 
 class Settings
 {
 public:
-	static std::string getPlayMode();
-	static std::string nextPlayMode();
-
-	
+	static const std::string getPlayMode();
+	static const std::string nextPlayMode();
 
 	Settings(const std::string &path);
 	~Settings();

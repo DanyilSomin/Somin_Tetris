@@ -1,13 +1,33 @@
 #include "Settings.h"
 
-std::string Settings::getPlayMode()
+const std::string Settings::getPlayMode()
 {
-	if (!get().m_json.contains("playmode"))
+	if (!get().m_json.contains("playMode"))
 	{
 		get().m_json["playMode"] = initPlayMode;
 	}
 
 	return get().m_json["playMode"];
+}
+
+const std::string Settings::nextPlayMode()
+{
+	auto it = std::find_if(playModes.begin(), playModes.end(), 
+		[](const auto &el) { return el.first == getPlayMode(); });
+	++it;
+
+	std::string nextMode;
+
+	if (it == playModes.end())
+	{
+		it = playModes.begin();
+	}
+
+	nextMode = it->first;
+
+	get().m_json["playMode"] = nextMode;
+
+	return nextMode;
 }
 
 Settings::Settings(const std::string &path)

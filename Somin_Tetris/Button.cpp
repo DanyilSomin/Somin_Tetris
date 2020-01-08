@@ -1,13 +1,20 @@
 #include "Button.h"
 
 Button::Button(const sf::Vector2f position, 
-	const std::string text, 
-	std::function<void(void)> onClickEvent)
+	const std::string &text, 
+	const std::function<void(void)> &onClickEvent)
 	: m_position{ position }, m_onClickEvent{ onClickEvent }, m_text{ text }
 {
 	m_font.loadFromFile("Fonts\\Schlange_sans_bld.otf");
 
+	setText(text);
+}
+
+void Button::setText(const std::string &text)
+{
 	m_texts.resize(ButtonState::COUNT);
+
+	m_text = text;
 
 	for (auto &txt : m_texts)
 	{
@@ -50,5 +57,5 @@ void Button::defoultTextInit(sf::Text &txt)
 	txt.setString(m_text);
 	txt.setPosition(m_position);
 	txt.setFillColor(sf::Color::White);
-	txt.move(-txt.getGlobalBounds().width / 2, -txt.getGlobalBounds().height / 2);
+	txt.move(-txt.getGlobalBounds().width / 2, 0);
 }

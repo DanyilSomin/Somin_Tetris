@@ -15,12 +15,18 @@ enum ButtonState
 class Button
 {
 public:
-	Button(const sf::Vector2f m_position, const std::string text, 
-		std::function<void(void)> onClickEvent);
+	Button(const sf::Vector2f m_position, const std::string &text, 
+		const std::function<void(void)> &onClickEvent = []() {});
+
+	void setText(const std::string & txt);
 
 	void update(sf::Window &window);
 
 	const sf::Text& getText() const { return m_texts[m_state]; }
+
+	void setOnclickEvent(const std::function<void(void)> &ev) { m_onClickEvent = ev; }
+
+	void click() { m_onClickEvent(); }
 
 private:
 	int m_charSize{ 36 };
