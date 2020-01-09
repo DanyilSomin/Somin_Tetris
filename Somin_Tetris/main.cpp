@@ -1,8 +1,13 @@
+#include <random>
+#include <ctime>
+
 #include <SFML/Graphics.hpp>
 #include "Screens.h"
 
 int main()
 {
+	std::srand(std::time(nullptr));
+
 	//Applications variables
 	std::vector<Screen*> screens;
 	GameScreen screen = GameScreen::MENU;

@@ -132,20 +132,25 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Button.cpp" />
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="PlayScreen.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MenuScreen.cpp" />
     <ClCompile Include="Settings.cpp" />
+    <ClCompile Include="Tetromino.cpp" />
     <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Button.h" />
+    <ClInclude Include="Game.h" />
     <ClInclude Include="PlayScreen.h" />
     <ClInclude Include="MenuScreen.h" />
     <ClInclude Include="Screen.h" />
     <ClInclude Include="Screens.h" />
     <ClInclude Include="Settings.h" />
+    <ClInclude Include="Tetromino.h" />
     <ClInclude Include="Timer.h" />
+    <ClInclude Include="TetrominosStates.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

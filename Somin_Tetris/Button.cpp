@@ -12,7 +12,7 @@ Button::Button(const sf::Vector2f position,
 
 void Button::setText(const std::string &text)
 {
-	m_texts.resize(ButtonState::COUNT);
+	m_texts.resize(ButtonState::BTN_STATES_COUNT);
 
 	m_text = text;
 

@@ -9,7 +9,7 @@ enum ButtonState
 	NORMAL,
 	HOWERED,
 	CLICKED,
-	COUNT,
+	BTN_STATES_COUNT,
 };
 
 class Button
