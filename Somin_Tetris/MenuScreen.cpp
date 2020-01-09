@@ -7,9 +7,9 @@ MenuScreen::MenuScreen()
 {
 	Button *btn = new Button(sf::Vector2f((WINDOW_WIDTH / 2), PLAY_BTN_HEIGHT),
 		"Play",
-		[]() 
+		[&]() 
 		{
-			//Settings::nextPlayMode();
+			this->startGame();
 		}
 	);
 
@@ -24,7 +24,7 @@ MenuScreen::MenuScreen()
 	m_buttons.emplace_back(btn);
 }
 
-GameScreen MenuScreen::run(sf::RenderWindow &window)
+GameScreen const MenuScreen::run(sf::RenderWindow &window)
 {
 	sf::Event event;
 
@@ -42,7 +42,7 @@ GameScreen MenuScreen::run(sf::RenderWindow &window)
 		}
 
 		//Clearing screen
-		window.clear();
+		window.clear(WINDOW_BACKGROUND);
 
 		//Drawing
 		for (auto &btn : m_buttons)

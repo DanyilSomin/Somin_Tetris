@@ -14,13 +14,15 @@ int main()
 	mainWindow.setFramerateLimit(FRAMERATE);
 
 	//Screens preparations
-	MenuScreen s;
-	screens.push_back(&s);
+	MenuScreen menu;
+	screens.push_back(&menu);
+	PlayScreen playScreen;
+	screens.push_back(&playScreen);
 
 	//Main loop
 	while (screen != GameScreen::EXIT)
 	{
-		screen = screens[GameScreen::MENU]->run(mainWindow);
+		screen = screens[screen]->run(mainWindow);
 	}
 
 	return EXIT_SUCCESS;

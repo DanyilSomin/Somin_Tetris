@@ -7,6 +7,6 @@ class Screen
 {
 public:
 	
-	virtual GameScreen run(sf::RenderWindow &window) = 0;
+	virtual const GameScreen run(sf::RenderWindow &window) = 0;
 };
 
