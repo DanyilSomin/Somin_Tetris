@@ -8,10 +8,9 @@
 
 #include "Screens.h"
 #include "Tetromino.h"
+#include "Game.h"
 
-const sf::Vector2f FIELD_POSITION{ 10, 10 };
-const std::string FIELD_IMG_PATH{ "Img\\field.png" };
-const int CELL_WIDTH{ 34 };
+const sf::Vector2f GAME_POSITION{ 10, 10 };
 
 class PlayScreen : public Screen
 {
@@ -25,5 +24,6 @@ public:
 private:
 	GameScreen m_curScreen{ GameScreen::PLAY };
 
+	Game m_game;
 };
 

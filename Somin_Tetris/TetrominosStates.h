@@ -18,19 +18,19 @@ const std::vector<TState> JStates{ {std::array<int, 4>{ 1, 0, 0, 0 },
 									std::array<int, 4>{ 0, 0, 0, 0 },
 									std::array<int, 4>{ 0, 0, 0, 0 } },
 
+								   {std::array<int, 4>{ 0, 1, 1, 0 },
+									std::array<int, 4>{ 0, 1, 0, 0 },
+									std::array<int, 4>{ 0, 1, 0, 0 },
+									std::array<int, 4>{ 0, 0, 0, 0 } },
+
+								   {std::array<int, 4>{ 0, 0, 0, 0 },
+									std::array<int, 4>{ 1, 1, 1, 0 },
+									std::array<int, 4>{ 0, 0, 1, 0 },
+									std::array<int, 4>{ 0, 0, 0, 0 } },
+
 								   {std::array<int, 4>{ 0, 1, 0, 0 },
 									std::array<int, 4>{ 0, 1, 0, 0 },
 									std::array<int, 4>{ 1, 1, 0, 0 },
-									std::array<int, 4>{ 0, 0, 0, 0 } },
-
-								   {std::array<int, 4>{ 1, 1, 1, 0 },
-									std::array<int, 4>{ 0, 0, 1, 0 },
-									std::array<int, 4>{ 0, 0, 0, 0 },
-									std::array<int, 4>{ 0, 0, 0, 0 } },
-
-								   {std::array<int, 4>{ 1, 1, 0, 0 },
-									std::array<int, 4>{ 1, 0, 0, 0 },
-									std::array<int, 4>{ 1, 0, 0, 0 },
 									std::array<int, 4>{ 0, 0, 0, 0 } } };
 
 
@@ -39,19 +39,19 @@ const std::vector<TState> LStates{ {std::array<int, 4>{ 0, 0, 1, 0 },
 									std::array<int, 4>{ 0, 0, 0, 0 },
 									std::array<int, 4>{ 0, 0, 0, 0 } },
 
+								   {std::array<int, 4>{ 0, 1, 0, 0 },
+									std::array<int, 4>{ 0, 1, 0, 0 },
+									std::array<int, 4>{ 0, 1, 1, 0 },
+									std::array<int, 4>{ 0, 0, 0, 0 } },
+
+								   {std::array<int, 4>{ 0, 0, 0, 0 },
+									std::array<int, 4>{ 1, 1, 1, 0 },
+									std::array<int, 4>{ 1, 0, 0, 0 },
+									std::array<int, 4>{ 0, 0, 0, 0 } },
+
 								   {std::array<int, 4>{ 1, 1, 0, 0 },
 									std::array<int, 4>{ 0, 1, 0, 0 },
 									std::array<int, 4>{ 0, 1, 0, 0 },
-									std::array<int, 4>{ 0, 0, 0, 0 } },
-
-								   {std::array<int, 4>{ 1, 1, 1, 0 },
-									std::array<int, 4>{ 1, 0, 0, 0 },
-									std::array<int, 4>{ 0, 0, 0, 0 },
-									std::array<int, 4>{ 0, 0, 0, 0 } },
-
-								   {std::array<int, 4>{ 1, 0, 0, 0 },
-									std::array<int, 4>{ 1, 0, 0, 0 },
-									std::array<int, 4>{ 1, 1, 0, 0 },
 									std::array<int, 4>{ 0, 0, 0, 0 } } };
 
 
@@ -61,7 +61,7 @@ const std::vector<TState> TStates{ {std::array<int, 4>{ 0, 1, 0, 0 },
 									std::array<int, 4>{ 0, 0, 0, 0 } },
 
 								   {std::array<int, 4>{ 0, 1, 0, 0 },
-									std::array<int, 4>{ 1, 1, 0, 0 },
+									std::array<int, 4>{ 0, 1, 1, 0 },
 									std::array<int, 4>{ 0, 1, 0, 0 },
 									std::array<int, 4>{ 0, 0, 0, 0 } },
 
@@ -71,7 +71,7 @@ const std::vector<TState> TStates{ {std::array<int, 4>{ 0, 1, 0, 0 },
 									std::array<int, 4>{ 0, 0, 0, 0 } },
 
 								   {std::array<int, 4>{ 0, 1, 0, 0 },
-									std::array<int, 4>{ 0, 1, 1, 0 },
+									std::array<int, 4>{ 1, 1, 0, 0 },
 									std::array<int, 4>{ 0, 1, 0, 0 },
 									std::array<int, 4>{ 0, 0, 0, 0 } } };
 
@@ -98,8 +98,8 @@ const std::vector<TState> ZStates{ {std::array<int, 4>{ 1, 1, 0, 0 },
 									std::array<int, 4>{ 0, 0, 0, 0 } } };
 
 
-const std::vector<TState> IStates{ {std::array<int, 4>{ 1, 1, 1, 1 },
-									std::array<int, 4>{ 0, 0, 0, 0 },
+const std::vector<TState> IStates{ {std::array<int, 4>{ 0, 0, 0, 0 },
+									std::array<int, 4>{ 1, 1, 1, 1 },
 									std::array<int, 4>{ 0, 0, 0, 0 },
 									std::array<int, 4>{ 0, 0, 0, 0 } },
 

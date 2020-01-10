@@ -9,13 +9,13 @@
 
 enum TetrominoType { O, J, L, T, S, Z, I, TETROMINO_TYPES_COUNT, RANDOM, NONE, };
 
-const std::string O_IMG_PATH{ "Img\\O.png" };
-const std::string J_IMG_PATH{ "Img\\J.png" };
-const std::string L_IMG_PATH{ "Img\\L.png" };
-const std::string T_IMG_PATH{ "Img\\T.png" };
-const std::string S_IMG_PATH{ "Img\\S.png" };
-const std::string Z_IMG_PATH{ "Img\\Z.png" };
-const std::string I_IMG_PATH{ "Img\\I.png" };
+const std::vector<std::string> BLOCKS_PATH{	"Img\\O.png", 
+											"Img\\J.png",
+											"Img\\L.png",
+											"Img\\T.png",
+											"Img\\S.png",
+											"Img\\Z.png",
+											"Img\\I.png"  };
 
 class Tetromino
 {
@@ -32,8 +32,14 @@ public:
 
 	const TState &curState() const { return *m_curState; }
 
+	const TState &nextState() const;
+
+	const TetrominoType type() const { return m_type; }
+
 private:
 	const float m_cellWidth;
+
+	TetrominoType m_type;
 
 	sf::Vector2f m_position;
 

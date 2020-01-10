@@ -12,7 +12,7 @@ const std::string settingsPath{ "settings.json" };
 
 const std::string initPlayMode{ "Casual" };
 const std::vector<std::pair<std::string, float>> playModes  
-	// Second value is acceleration of block per second
+	// Second value is acceleration of tetromines per line
 {
 	{"Casual", 0},
 	{"Easy", 0.02 },
@@ -25,6 +25,8 @@ class Settings
 public:
 	static const std::string getPlayMode();
 	static const std::string nextPlayMode();
+
+	static const int initalInterval = 500; //ms
 
 	Settings(const std::string &path);
 	~Settings();

@@ -1,15 +1,13 @@
 #include "PlayScreen.h"
 
 PlayScreen::PlayScreen()
+	: m_game{ GAME_POSITION }
 {
 	
 }
 
 const GameScreen PlayScreen::run(sf::RenderWindow &window)
 {
-	sf::Texture fieldImg;
-	fieldImg.loadFromFile(FIELD_IMG_PATH);
-
 	m_curScreen = GameScreen::PLAY;
 
 	return mainLoop(window);
@@ -28,6 +26,26 @@ const GameScreen PlayScreen::mainLoop(sf::RenderWindow &window)
 			{
 				return (GameScreen::EXIT);
 			}
+			else if ((event.type == sf::Event::KeyPressed)
+				&& ((event.key.code == sf::Keyboard::Left) || (event.key.code == sf::Keyboard::A)))
+			{
+				m_game.left();
+			}
+			else if ((event.type == sf::Event::KeyPressed)
+				&& ((event.key.code == sf::Keyboard::Right) || (event.key.code == sf::Keyboard::D)))
+			{
+				m_game.right();
+			}
+			else if ((event.type == sf::Event::KeyPressed)
+				&& ((event.key.code == sf::Keyboard::Up) || (event.key.code == sf::Keyboard::W)))
+			{
+				m_game.up();
+			}
+			else if ((event.type == sf::Event::KeyPressed)
+				&& ((event.key.code == sf::Keyboard::Down) || (event.key.code == sf::Keyboard::S)))
+			{
+				m_game.down();
+			}
 		}
 
 		//Clearing screen
@@ -36,7 +54,7 @@ const GameScreen PlayScreen::mainLoop(sf::RenderWindow &window)
 		
 
 		//Drawing
-
+		m_game.draw(window);
 		
 		window.display();
 	}
