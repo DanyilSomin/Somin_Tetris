@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+
 #include <string>
 #include <functional>
 
@@ -20,7 +21,7 @@ public:
 
 	void setText(const std::string & txt);
 
-	void update(sf::Window &window);
+	void update(sf::RenderWindow &window);
 
 	const sf::Text& getText() const { return m_texts[m_state]; }
 

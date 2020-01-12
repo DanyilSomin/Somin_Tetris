@@ -26,10 +26,10 @@ void Button::setText(const std::string &text)
 	m_texts[ButtonState::CLICKED].setFillColor(sf::Color(160, 160, 160, 255));
 }
 
-void Button::update(sf::Window &window)
+void Button::update(sf::RenderWindow &window)
 {
 	if (m_texts[m_state].getGlobalBounds().contains(
-		static_cast<sf::Vector2f>(sf::Mouse::getPosition(window))))
+		static_cast<sf::Vector2f>(window.mapPixelToCoords(sf::Mouse::getPosition(window)))))
 	{
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
 		{

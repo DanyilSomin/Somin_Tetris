@@ -30,6 +30,15 @@ const std::string Settings::nextPlayMode()
 	return nextMode;
 }
 
+const std::pair<int, int> Settings::getPlayDifficulty()
+{
+	auto it = std::find_if(playModes.begin(), playModes.end(),
+		[](const auto &el) { return el.first == getPlayMode(); });
+
+	if (it == playModes.end()) { return playModes.begin()->second; }
+	else { return it->second; }
+}
+
 Settings::Settings(const std::string &path)
 	: m_path{ path }
 {

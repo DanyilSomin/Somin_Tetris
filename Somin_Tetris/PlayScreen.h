@@ -12,6 +12,17 @@
 
 const sf::Vector2f GAME_POSITION{ 10, 10 };
 
+enum TextType { SCORE, LEVEL, LINE, TIME_WITHOUT_I, TETRIS_RATE, COUNT };
+
+const std::array<sf::Vector2f, TextType::COUNT> TEXTS_POSITIONS
+{
+	sf::Vector2f{ 380, 135 }, 
+	sf::Vector2f{ 380, 180 },
+	sf::Vector2f{ 380, 225 },
+	sf::Vector2f{ 380, 270 },
+	sf::Vector2f{ 380, 315 }, 
+};
+
 class PlayScreen : public Screen
 {
 public:
@@ -22,8 +33,18 @@ public:
 	const GameScreen mainLoop(sf::RenderWindow &window);
 
 private:
+	int m_charSize{ 24 };
+
+	sf::Font m_font;
+
 	GameScreen m_curScreen{ GameScreen::PLAY };
 
-	Game m_game;
+	void handleEvents(sf::RenderWindow &window);
+
+	std::unique_ptr<Game> m_game;
+
+	std::vector<std::unique_ptr<sf::Text>> m_texts;
+
+	void updateText();
 };
 

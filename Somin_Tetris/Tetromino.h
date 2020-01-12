@@ -51,6 +51,6 @@ private:
 
 	std::vector<TState>::const_iterator m_curState;
 
-	TetrominoType randomType();
+	static TetrominoType randomType();
 };
 

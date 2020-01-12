@@ -11,13 +11,14 @@
 const std::string settingsPath{ "settings.json" };
 
 const std::string initPlayMode{ "Casual" };
-const std::vector<std::pair<std::string, float>> playModes  
-	// Second value is acceleration of tetromines per line
+
+const std::vector<std::pair<std::string, std::pair<int, int>>> playModes
+	// Difficulty - Starting level - Lines before new level
 {
-	{"Casual", 0},
-	{"Easy", 0.02 },
-	{"Normal", 0.035 },
-	{"Hard", 0.07}
+	{"Casual", {0 , 20} },
+	{"Easy"  , {0 , 4} },
+	{"Normal", {10, 6} },
+	{"Hard"  , {20, 12} }
 };
 
 class Settings
@@ -25,8 +26,7 @@ class Settings
 public:
 	static const std::string getPlayMode();
 	static const std::string nextPlayMode();
-
-	static const int initalInterval = 500; //ms
+	static const std::pair<int, int> getPlayDifficulty();
 
 	Settings(const std::string &path);
 	~Settings();

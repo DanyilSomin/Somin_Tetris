@@ -6,7 +6,6 @@ enum GameScreen;
 class Screen
 {
 public:
-	
 	virtual const GameScreen run(sf::RenderWindow &window) = 0;
 };
 

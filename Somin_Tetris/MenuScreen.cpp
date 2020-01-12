@@ -39,6 +39,13 @@ GameScreen const MenuScreen::run(sf::RenderWindow &window)
 			{
 				return (GameScreen::EXIT);
 			}
+			else if (event.type == sf::Event::Resized)
+			{
+				float newHeight(event.size.width);
+				newHeight /= WINDOW_WIDTH;
+				newHeight *= WINDOW_HEIGHT;
+				window.setSize({ event.size.width, static_cast<unsigned>(newHeight) });
+			}
 		}
 
 		//Clearing screen

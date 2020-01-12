@@ -14,7 +14,7 @@ int main()
 
 	//Window creation
 	sf::RenderWindow mainWindow(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), 
-		"Somin Tetris: best clone ever!", sf::Style::Titlebar | sf::Style::Close);
+		"Somin Tetris: best clone ever!");
 	
 	mainWindow.setFramerateLimit(FRAMERATE);
 
