@@ -14,7 +14,16 @@ PlayScreen::PlayScreen()
 		m_texts[i]->setFillColor(sf::Color::White);
 	}
 
+	m_pauseFrame.reset(new PopoutFrame{ PAUSE_FRAME_POSITION, "PAUSE" });
+	m_pauseFrame->push("Restart", [&]() { m_game->restart(); }); 
+	m_pauseFrame->push("Main menu", [&]() { goToMenu(); });
+	m_pauseFrame->push("Back to game", [&]() { m_game->pause_start(); });
 
+	m_gameOverFrame.reset(new PopoutFrame{ PAUSE_FRAME_POSITION, "GAME OVER" });
+	m_gameOverFrame->push("Play again", [&]() { m_game->restart(); });
+	m_gameOverFrame->push("Main menu", [&]() { goToMenu(); });
+
+	m_pauseBtn.reset(new Button{ PAUSE_BTN_POSITION, "Pause", [&]() { m_game->pause_start(); } });
 }
 
 const GameScreen PlayScreen::run(sf::RenderWindow &window)
@@ -43,6 +52,17 @@ const GameScreen PlayScreen::mainLoop(sf::RenderWindow &window)
 		for (auto &text : m_texts)
 		{
 			window.draw(*text);
+		}
+
+		m_pauseBtn->draw(window);
+
+		if (m_game->isGameOver())
+		{
+			m_gameOverFrame->draw(window);
+		}
+		else if (m_game->isPaused())
+		{
+			m_pauseFrame->draw(window);
 		}
 		
 		window.display();

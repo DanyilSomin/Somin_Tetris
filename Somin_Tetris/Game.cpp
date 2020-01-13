@@ -38,7 +38,7 @@ Game::Game(const sf::Vector2f &position)
 
 void Game::update()
 {
-	if (m_gameOver) return;
+	if (m_isGameOver) return;
 
 	m_stats.line += checkLines();
 
@@ -51,28 +51,25 @@ void Game::update()
 			m_curTetromino->move({ 0, CELL_WIDTH + 1 });
 			m_curTetrominoPos.x++;
 		}
+		else if (checkPlace(m_curTetromino->curState(), m_curTetrominoPos))
+		{
+			fixCurrentTetromino();
+			// Next -> Current
+			m_curTetromino.reset(m_nextTetromino.release());
+			// Next = New
+			m_nextTetromino.reset(new Tetromino{ NEXT_TETROMINO_PX_POS + m_position, CELL_WIDTH });
+			
+			// Prepare new current tetromino
+			m_curTetrominoPos = INIT_TETROMINO_POS;
+			m_curTetromino->setPosition(cellCoordinate(m_curTetrominoPos));
+
+			if (m_curTetromino->type() == TetrominoType::I) { m_stats.timeWithoutI = 0; }
+			else { ++m_stats.timeWithoutI; }
+		}
 		else
 		{
-			if (checkPlace(m_curTetromino->curState(), m_curTetrominoPos))
-			{
-				fixCurrentTetromino();
-				// Next -> Current
-				m_curTetromino.reset(m_nextTetromino.release());
-				// Next = New
-				m_nextTetromino.reset(new Tetromino{ NEXT_TETROMINO_PX_POS + m_position, CELL_WIDTH });
-			
-				// Prepare new current tetromino
-				m_curTetrominoPos = INIT_TETROMINO_POS;
-				m_curTetromino->setPosition(cellCoordinate(m_curTetrominoPos));
-
-				if (m_curTetromino->type() == TetrominoType::I) { m_stats.timeWithoutI = 0; }
-				else { ++m_stats.timeWithoutI; }
-			}
-			else
-			{
-				m_gameOver == true;
-			}
-		}
+			m_isGameOver = true;
+		}	
 	}
 }
 
@@ -161,7 +158,7 @@ const sf::Vector2i Game::findRotationShift()
 
 void Game::draw(sf::RenderWindow &window)
 {
-	update();
+	if (!m_isPaused) { update(); }
 
 	// Draw images
 	for (const auto &el : m_sprites)
@@ -198,6 +195,44 @@ void Game::draw(sf::RenderWindow &window)
 	// Draw tetromines
 	m_curTetromino->draw(window);
 	m_nextTetromino->draw(window);
+}
+
+void Game::restart()
+{
+	gameOver();
+
+	m_lines.clear();
+
+	// Get settings
+	m_stats.level = m_startLevel;
+	m_linesBeforeNextLevel = Settings::getPlayDifficulty().second;
+	m_nextDownTime = LEVEL_PERIODS[std::min(static_cast<int>(LEVEL_PERIODS.size() - 1), m_stats.level)];
+
+	m_curTetrominoPos = INIT_TETROMINO_POS;
+
+	m_curTetromino.reset(new Tetromino{ cellCoordinate(m_curTetrominoPos), CELL_WIDTH });
+	m_nextTetromino.reset(new Tetromino{ NEXT_TETROMINO_PX_POS + m_position, CELL_WIDTH });
+
+	m_isGameOver = false;
+	m_isPaused = false;
+
+	m_stats.level = 0;
+	m_stats.line = 0;
+	m_stats.score = 0;
+	m_stats.tetrisLinesAmount = 0;
+	m_stats.timeWithoutI = 0;
+
+	m_clock.restart();
+}
+
+void Game::pause_start()
+{
+	if (m_isPaused)
+	{
+		m_clock.restart();
+	}
+
+	m_isPaused = !m_isPaused;
 }
 
 void Game::fixCurrentTetromino()

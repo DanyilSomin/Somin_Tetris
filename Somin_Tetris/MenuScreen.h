@@ -1,5 +1,6 @@
 #pragma once
 
+#include <SFML/Graphics.hpp>
 #include <functional>
 #include <map>
 #include <vector>
@@ -8,9 +9,9 @@
 
 #include "Screens.h"
 #include "Button.h"
+#include "PopoutFrame.h"
 
-constexpr int PLAY_BTN_HEIGHT = 200;
-constexpr int MODE_BTN_HEIGHT = 250;
+const sf::Vector2f MENU_FRAME_POSITION{ WINDOW_WIDTH / 2,  200 };
 
 class MenuScreen : public Screen
 {
@@ -24,8 +25,6 @@ public:
 private:
 	GameScreen m_curScreen{ GameScreen::MENU };
 
-	std::vector<std::unique_ptr<Button>> m_buttons;
-
-	
+	std::unique_ptr<PopoutFrame> m_popoutFrame;
 };
 

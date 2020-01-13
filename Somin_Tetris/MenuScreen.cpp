@@ -2,26 +2,22 @@
 
 #include "Screens.h"
 #include "Settings.h"
+#include "PopoutFrame.h"
 
 MenuScreen::MenuScreen()
 {
-	Button *btn = new Button(sf::Vector2f((WINDOW_WIDTH / 2), PLAY_BTN_HEIGHT),
-		"Play",
-		[&]() 
-		{
-			this->startGame();
-		}
-	);
+	m_popoutFrame.reset(new PopoutFrame{ MENU_FRAME_POSITION, "TETRIS" });
+	
+	m_popoutFrame->push("Play", [&]() { this->startGame(); });
 
-	m_buttons.emplace_back(btn);
-
-	btn = new Button(sf::Vector2f((WINDOW_WIDTH / 2), MODE_BTN_HEIGHT), Settings::getPlayMode());
+	Button *btn = new Button(sf::Vector2f((WINDOW_WIDTH / 2), 100), Settings::getPlayMode());
 	btn->setOnclickEvent([btn]() 
 	{ 
 		btn->setText(Settings::nextPlayMode()); 
 	});
 
-	m_buttons.emplace_back(btn);
+	m_popoutFrame->push(btn);
+
 }
 
 GameScreen const MenuScreen::run(sf::RenderWindow &window)
@@ -52,11 +48,7 @@ GameScreen const MenuScreen::run(sf::RenderWindow &window)
 		window.clear(WINDOW_BACKGROUND);
 
 		//Drawing
-		for (auto &btn : m_buttons)
-		{
-			btn->update(window);
-			window.draw(btn->getText());
-		}
+		m_popoutFrame->draw(window);
 		
 		window.display();
 	}

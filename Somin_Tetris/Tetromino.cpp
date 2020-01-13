@@ -40,7 +40,11 @@ Tetromino::Tetromino(const sf::Vector2f & position, float cellWidth, TetrominoTy
 		break;
 	}
 
+	float width = m_texture.getSize().x;
+
 	m_sprite.setTexture(m_texture);
+
+	m_sprite.scale(m_cellWidth / width, m_cellWidth / width);
 
 	m_curState = m_states->begin();
 }

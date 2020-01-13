@@ -1,21 +1,13 @@
 #include "Button.h"
 
-Button::Button(const sf::Vector2f position, 
+Button::Button(const sf::Vector2f &position, 
 	const std::string &text, 
 	const std::function<void(void)> &onClickEvent)
 	: m_position{ position }, m_onClickEvent{ onClickEvent }, m_text{ text }
 {
-	m_font.loadFromFile("Fonts\\Schlange_sans_bld.otf");
+	m_font.loadFromFile(FONT_PATH);
 
-	setText(text);
-}
-
-void Button::setText(const std::string &text)
-{
 	m_texts.resize(ButtonState::BTN_STATES_COUNT);
-
-	m_text = text;
-
 	for (auto &txt : m_texts)
 	{
 		defoultTextInit(txt);
@@ -24,6 +16,27 @@ void Button::setText(const std::string &text)
 	m_texts[ButtonState::NORMAL].setFillColor(sf::Color::White);
 	m_texts[ButtonState::HOWERED].setFillColor(sf::Color(200, 200, 200, 255));
 	m_texts[ButtonState::CLICKED].setFillColor(sf::Color(160, 160, 160, 255));
+}
+
+void Button::setText(const std::string &text)
+{
+	m_text = text;
+
+	for (auto &txt : m_texts)
+	{
+		txt.move(txt.getGlobalBounds().width / 2, 0);
+
+		txt.setString(text);
+
+		txt.move(-txt.getGlobalBounds().width / 2, 0);
+	}
+}
+
+void Button::draw(sf::RenderWindow & window)
+{
+	update(window);
+
+	window.draw(getText());
 }
 
 void Button::update(sf::RenderWindow &window)
@@ -58,4 +71,20 @@ void Button::defoultTextInit(sf::Text &txt)
 	txt.setPosition(m_position);
 	txt.setFillColor(sf::Color::White);
 	txt.move(-txt.getGlobalBounds().width / 2, 0);
+}
+
+void Button::setPosition(const sf::Vector2f &m_position)
+{
+	for (auto &text : m_texts)
+	{
+		text.setPosition(m_position);
+	}
+}
+
+void Button::move(const sf::Vector2f & delta)
+{
+	for (auto &text : m_texts)
+	{
+		text.move(delta);
+	}
 }

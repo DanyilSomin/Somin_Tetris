@@ -56,20 +56,27 @@ public:
 
 	void draw(sf::RenderWindow &window);
 
-	void gameOver() { m_gameOver = false; }
+	void gameOver() { saveStats(); m_isGameOver = true; }
+	
+	void restart();
+	void pause_start();
+	bool isPaused() const { return m_isPaused; }
+	bool isGameOver() const { return m_isGameOver; }
 
 	const GameStats &getStats() const { return m_stats; }
 	
 private:
 	GameStats m_stats;
 
-	int m_linesBeforeNextLevel = 0;
+	bool m_isPaused{ false };
 
-	int m_nextDownTime = 0;
+	int m_linesBeforeNextLevel{ 0 };
 
-	const int m_startLevel = 0;
+	int m_nextDownTime{ 0 };
 
-	bool m_gameOver = false;
+	const int m_startLevel{ 0 };
+
+	bool m_isGameOver = { false };
 
 	const sf::Vector2f m_position;
 
@@ -97,5 +104,7 @@ private:
 	const sf::Vector2f cellCoordinate(const sf::Vector2i &cell);
 
 	int checkLines();
+
+	void saveStats() {}
 };
 

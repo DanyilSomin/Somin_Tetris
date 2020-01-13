@@ -9,8 +9,12 @@
 #include "Screens.h"
 #include "Tetromino.h"
 #include "Game.h"
+#include "Button.h"
+#include "PopoutFrame.h"
 
 const sf::Vector2f GAME_POSITION{ 10, 10 };
+const sf::Vector2f PAUSE_BTN_POSITION{ WINDOW_WIDTH - 71, WINDOW_HEIGHT - 55 };
+const sf::Vector2f PAUSE_FRAME_POSITION{ (WINDOW_WIDTH / 2), 220 };
 
 enum TextType { SCORE, LEVEL, LINE, TIME_WITHOUT_I, TETRIS_RATE, COUNT };
 
@@ -32,6 +36,8 @@ public:
 
 	const GameScreen mainLoop(sf::RenderWindow &window);
 
+	void goToMenu() { m_game->gameOver(); m_curScreen = GameScreen::MENU; }
+
 private:
 	int m_charSize{ 24 };
 
@@ -40,8 +46,14 @@ private:
 	GameScreen m_curScreen{ GameScreen::PLAY };
 
 	void handleEvents(sf::RenderWindow &window);
+	
+	std::unique_ptr<PopoutFrame> m_pauseFrame;
 
+	std::unique_ptr<PopoutFrame> m_gameOverFrame;
+	
 	std::unique_ptr<Game> m_game;
+
+	std::unique_ptr<Button> m_pauseBtn;
 
 	std::vector<std::unique_ptr<sf::Text>> m_texts;
 
