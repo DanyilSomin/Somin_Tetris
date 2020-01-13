@@ -12,8 +12,10 @@ const std::string settingsPath{ "settings.json" };
 
 const std::string initPlayMode{ "Casual" };
 
+const std::string initMusicMode{ "Unmuted" };
+
 const std::vector<std::pair<std::string, std::pair<int, int>>> playModes
-	// Difficulty - Starting level - Lines before new level
+// Difficulty - Starting level - Lines before new level
 {
 	{"Casual", {0 , 20} },
 	{"Easy"  , {0 , 4} },
@@ -27,6 +29,11 @@ public:
 	static const std::string getPlayMode();
 	static const std::string nextPlayMode();
 	static const std::pair<int, int> getPlayDifficulty();
+
+	static const std::string getMusicMode();
+	static const std::string muteMusic();
+	static const std::string unmuteMusic();
+	static const bool isMusicMuted();
 
 	Settings(const std::string &path);
 	~Settings();

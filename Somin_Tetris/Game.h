@@ -28,11 +28,6 @@ const sf::Vector2i UP   {-1, 0 }; // cells
 const sf::Vector2i RIGHT{ 0, 1 }; // cells
 const sf::Vector2i LEFT { 0,-1 }; // cells
 
-const std::array<int, 5> SCORE_POINTS_COEF{ 0, 40, 100, 300, 1200 }; // score points
-const std::array<int, 30> LEVEL_PERIODS{ 1660, 1570, 1480, 1390, 1300, 1210, 1120, 1030, 940,  850,
-										 810,  790,  750,  690,  630,  570,  510,  450,  400,  390, 
-										 340,  300,  780,  250,  220,  190,  160,  130,  100,  80  }; // ms
-
 struct GameStats
 {
 	int score = 0;

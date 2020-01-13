@@ -28,11 +28,13 @@ public:
 
 	void setPosition(const sf::Vector2f &pos) { m_position = pos; }
 
+	const sf::Vector2f& getPosition() { return m_position; }
+
 	void rotate();
 
-	const TState &curState() const { return *m_curState; }
+	const TState& curState() const { return *m_curState; }
 
-	const TState &nextState() const;
+	const TState& nextState() const;
 
 	const TetrominoType type() const { return m_type; }
 

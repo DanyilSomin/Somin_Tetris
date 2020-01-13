@@ -82,7 +82,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <AdditionalLibraryDirectories>D:\SFML-2.5.1\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-main.lib;sfml-graphics-d.lib;sfml-window-d.lib;sfml-system-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-main.lib;sfml-audio-d.lib;sfml-graphics-d.lib;sfml-window-d.lib;sfml-system-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -143,6 +143,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MenuScreen.cpp" />
     <ClCompile Include="PopoutFrame.cpp" />
+    <ClCompile Include="ScreenSaver.cpp" />
     <ClCompile Include="Settings.cpp" />
     <ClCompile Include="Tetromino.cpp" />
   </ItemGroup>
@@ -155,6 +156,7 @@
     <ClInclude Include="PopoutFrame.h" />
     <ClInclude Include="Screen.h" />
     <ClInclude Include="Screens.h" />
+    <ClInclude Include="ScreenSaver.h" />
     <ClInclude Include="Settings.h" />
     <ClInclude Include="Tetromino.h" />
     <ClInclude Include="TetrominosStates.h" />

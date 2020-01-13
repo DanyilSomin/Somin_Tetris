@@ -20,8 +20,6 @@ PopoutFrame::PopoutFrame(const sf::Vector2f & position, const std::string & head
 
 void PopoutFrame::draw(sf::RenderWindow & window)
 {
-	//window.clear(BACKGROUND_COLOR);
-	
 	window.draw(m_rectangle);
 
 	for (auto &text : m_texts)
@@ -132,7 +130,12 @@ void PopoutFrame::resizeToFit()
 		Y += txt->getLocalBounds().height + DISTANSE_BETWEEN;
 	}
 
-	Y += m_buttons.size() * (FONT_SIZE + DISTANSE_BETWEEN);
+	for (const auto &btn : m_buttons)
+	{
+		Y += btn->getText().getLocalBounds().height + DISTANSE_BETWEEN;
+	}
+
+	//Y += m_buttons.size() * (FONT_SIZE + DISTANSE_BETWEEN);
 
 	m_size = sf::Vector2f{ maxX, Y } +BORDER_SIZE + BORDER_SIZE;
 }

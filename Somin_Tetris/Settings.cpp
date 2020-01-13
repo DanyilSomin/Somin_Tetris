@@ -39,6 +39,33 @@ const std::pair<int, int> Settings::getPlayDifficulty()
 	else { return it->second; }
 }
 
+const std::string Settings::getMusicMode()
+{
+	if (!get().m_json.contains("musicMode"))
+	{
+		get().m_json["musicMode"] = initMusicMode;
+	}
+
+	return get().m_json["musicMode"];
+}
+
+const std::string Settings::muteMusic()
+{
+	get().m_json["musicMode"] = "Muted";
+	return "Muted";
+}
+
+const std::string Settings::unmuteMusic()
+{
+	get().m_json["musicMode"] = "Unmuted";
+	return "Unmuted";
+}
+
+const bool Settings::isMusicMuted()
+{
+	return getMusicMode() == "Muted";
+}
+
 Settings::Settings(const std::string &path)
 	: m_path{ path }
 {

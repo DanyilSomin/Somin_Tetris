@@ -1,11 +1,18 @@
 #include "Button.h"
 
+bool Button::lastUpdateMouseDown = false;
+
 Button::Button(const sf::Vector2f &position, 
 	const std::string &text, 
 	const std::function<void(void)> &onClickEvent)
 	: m_position{ position }, m_onClickEvent{ onClickEvent }, m_text{ text }
 {
 	m_font.loadFromFile(FONT_PATH);
+
+	m_clickBuf.loadFromFile(CLICK_SOUND_PATH);
+	m_clickSound.setBuffer(m_clickBuf);
+	m_selectBuf.loadFromFile(SELECT_SOUND_PATH);
+	m_selectSound.setBuffer(m_selectBuf);
 
 	m_texts.resize(ButtonState::BTN_STATES_COUNT);
 	for (auto &txt : m_texts)
@@ -46,16 +53,33 @@ void Button::update(sf::RenderWindow &window)
 	{
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
 		{
-			if (m_state != ButtonState::CLICKED)
+			if (!Button::lastUpdateMouseDown)
 			{
+				Button::lastUpdateMouseDown = true;
+				m_clickSound.play();
 				m_state = ButtonState::CLICKED;
 				m_onClickEvent();
 			}
 		}
+		else if (m_state != ButtonState::HOWERED)
+		{
+			if (m_state == ButtonState::NORMAL)
+			{
+				m_selectSound.play();
+			}
+
+			m_state = ButtonState::HOWERED;
+
+			Button::lastUpdateMouseDown = false;
+		}
 		else
 		{
-			m_state = ButtonState::HOWERED;
+			lastUpdateMouseDown = false;
 		}
+	}
+	else if (m_state == ButtonState::CLICKED)
+	{
+		m_state = ButtonState::HOWERED;
 	}
 	else
 	{

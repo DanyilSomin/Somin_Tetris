@@ -6,16 +6,36 @@
 
 MenuScreen::MenuScreen()
 {
-	m_popoutFrame.reset(new PopoutFrame{ MENU_FRAME_POSITION, "TETRIS" });
+	m_music.openFromFile("Sound\\music.wav");
+	m_music.setLoop(true);
+	updateMusicMode();
+
+	m_screenSaver.reset( new ScreenSaver );
+
+	m_popoutFrame.reset(new PopoutFrame{ MENU_FRAME_POSITION, "SOMIN TETRIS" });
 	
 	m_popoutFrame->push("Play", [&]() { this->startGame(); });
 
-	Button *btn = new Button(sf::Vector2f((WINDOW_WIDTH / 2), 100), Settings::getPlayMode());
-	btn->setOnclickEvent([btn]() 
+	Button *btn = new Button(sf::Vector2f(), Settings::getPlayMode());
+	btn->setOnclickEvent([&, btn]() 
 	{ 
 		btn->setText(Settings::nextPlayMode()); 
 	});
+	m_popoutFrame->push(btn);
 
+	btn = new Button(sf::Vector2f(), Settings::getMusicMode());
+	btn->setOnclickEvent([&, btn]()
+	{
+		if (Settings::isMusicMuted())
+		{
+			btn->setText(Settings::unmuteMusic());
+		}
+		else
+		{
+			btn->setText(Settings::muteMusic());
+		}
+		this->updateMusicMode();
+	});
 	m_popoutFrame->push(btn);
 
 }
@@ -48,10 +68,24 @@ GameScreen const MenuScreen::run(sf::RenderWindow &window)
 		window.clear(WINDOW_BACKGROUND);
 
 		//Drawing
+		m_screenSaver->draw(window);
+
 		m_popoutFrame->draw(window);
 		
 		window.display();
 	}
 
 	return m_curScreen;
+}
+
+void MenuScreen::updateMusicMode()
+{
+	if (Settings::isMusicMuted())
+	{
+		m_music.pause();
+	}
+	else
+	{
+		m_music.play();
+	}
 }
