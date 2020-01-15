@@ -22,11 +22,11 @@ const sf::Vector2f NEXT_TETROMINO_BACKGROUND_POSITION{ 368, 0 }; // px
 const sf::Vector2f NEXT_TETROMINO_PX_POS
 	{ NEXT_TETROMINO_BACKGROUND_POSITION + sf::Vector2f{ 3, 3 } }; // px
 
-const sf::Vector2i INIT_TETROMINO_POS{ 0, 4 }; // cells
-const sf::Vector2i DOWN { 1, 0 }; // cells
-const sf::Vector2i UP   {-1, 0 }; // cells
-const sf::Vector2i RIGHT{ 0, 1 }; // cells
-const sf::Vector2i LEFT { 0,-1 }; // cells
+const sf::Vector2i INIT_TETROMINO_POS{ 4, 0 }; // cells
+const sf::Vector2i DOWN { 0, 1 }; // cells
+const sf::Vector2i UP   { 0,-1 }; // cells
+const sf::Vector2i RIGHT{ 1, 0 }; // cells
+const sf::Vector2i LEFT {-1, 0 }; // cells
 
 struct GameStats
 {

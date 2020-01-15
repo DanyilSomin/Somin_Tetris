@@ -61,7 +61,7 @@ private:
 
 	ButtonState m_state = ButtonState::NORMAL;
 
-	void defoultTextInit(sf::Text &txt);
+	void defaultTextInit(sf::Text &txt);
 	
 	void update(sf::RenderWindow &window);
 };

@@ -17,7 +17,7 @@ Button::Button(const sf::Vector2f &position,
 	m_texts.resize(ButtonState::BTN_STATES_COUNT);
 	for (auto &txt : m_texts)
 	{
-		defoultTextInit(txt);
+		defaultTextInit(txt);
 	}
 
 	m_texts[ButtonState::NORMAL].setFillColor(sf::Color::White);
@@ -87,7 +87,7 @@ void Button::update(sf::RenderWindow &window)
 	}
 }
 
-void Button::defoultTextInit(sf::Text &txt)
+void Button::defaultTextInit(sf::Text &txt)
 {
 	txt.setCharacterSize(m_charSize);
 	txt.setFont(m_font);

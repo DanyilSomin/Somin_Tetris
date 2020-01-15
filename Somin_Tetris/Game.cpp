@@ -49,7 +49,7 @@ void Game::update()
 		if (checkPlace(m_curTetromino->curState(), m_curTetrominoPos + DOWN))
 		{
 			m_curTetromino->move({ 0, CELL_WIDTH + 1 });
-			m_curTetrominoPos.x++;
+			m_curTetrominoPos += DOWN;
 		}
 		else if (checkPlace(m_curTetromino->curState(), m_curTetrominoPos))
 		{
@@ -127,7 +127,7 @@ const sf::Vector2i Game::findRotationShift()
 	int leftmostI = TETROMINO_STATE_WIDTH - 1;
 	int rightmostI = 0;
 
-	for (int i{ TETROMINO_STATE_WIDTH - 2 }; i >= 0; --i)
+	for (int i{ TETROMINO_STATE_WIDTH - 1 }; i >= 0; --i)
 	{
 		for (int j{ 0 }; j < TETROMINO_STATE_WIDTH; ++j)
 		{
@@ -143,14 +143,14 @@ const sf::Vector2i Game::findRotationShift()
 		}
 	}
 
-	if ((leftmostI + m_curTetrominoPos.y) < 0)
+	if ((leftmostI + m_curTetrominoPos.x) < 0)
 	{
-		return { 0, -(leftmostI + m_curTetrominoPos.y) };
+		return { -(leftmostI + m_curTetrominoPos.x), 0 };
 	}
-
-	if ((rightmostI + m_curTetrominoPos.y) >= FIELD_WIDTH)
+	
+	if ((rightmostI + m_curTetrominoPos.x) >= FIELD_WIDTH)
 	{
-		return { 0, (FIELD_WIDTH - (rightmostI + m_curTetrominoPos.y) - 1) };
+		return { (FIELD_WIDTH - (rightmostI + m_curTetrominoPos.x) - 1), 0 };
 	}
 
 	return sf::Vector2i{ 0, 0 };
@@ -185,7 +185,7 @@ void Game::draw(sf::RenderWindow &window)
 
 			if (sprite)
 			{
-				sprite->setPosition(cellCoordinate( { FIELD_HEIGHT - 1 - i, j } ));
+				sprite->setPosition(cellCoordinate( { j, FIELD_HEIGHT - 1 - i } ));
 				window.draw(*sprite);
 			}
 
@@ -238,7 +238,7 @@ void Game::pause_start()
 void Game::fixCurrentTetromino()
 {
 	// Create new lines if they do not exist
-	for (int i( m_lines.size() ); i < FIELD_HEIGHT - m_curTetrominoPos.x; ++i)
+	for (int i( m_lines.size() ); i < FIELD_HEIGHT - m_curTetrominoPos.y; ++i)
 	{
 		m_lines.push_back({});
 		m_lines[m_lines.size() - 1].fill(TetrominoType::NONE);
@@ -252,57 +252,41 @@ void Game::fixCurrentTetromino()
 		{
 			if (m_curTetromino->curState()[i][j])
 			{
-				m_lines[(FIELD_HEIGHT - 1 - i) - m_curTetrominoPos.x][j + m_curTetrominoPos.y]
+				m_lines[(FIELD_HEIGHT - 1 - i) - m_curTetrominoPos.y][j + m_curTetrominoPos.x]
 					= m_curTetromino->type();
 			}
 		}
 	}
 }
 
-bool Game::checkPlace(const TState & state, const sf::Vector2i &delta) const
+bool Game::checkPlace(const TState & state, const sf::Vector2i &position) const
 {
-	// Check for walls
-		// Left wall
-	for (int i{ delta.y }; i < 0; ++i)
+	// Collision with walls
+	for (int i{ 0 }; i < TETROMINO_STATE_WIDTH; ++i)
 	{
 		for (int j{ 0 }; j < TETROMINO_STATE_WIDTH; ++j)
-		{
-			if (state[j][-i - 1]) { return false; }
-		}
-	}
-		// Right wall
-	for (int i{ FIELD_WIDTH - TETROMINO_STATE_WIDTH - delta.y }; i < 0; ++i)
-	{
-		for (int j{ 0 }; j < TETROMINO_STATE_WIDTH; ++j)
-		{
-			if (state[j][TETROMINO_STATE_WIDTH + i]) { return false; }
-		}
-	}
-		// Bottom wall
-	for (int i{ FIELD_HEIGHT - delta.x }; i < TETROMINO_STATE_WIDTH; ++i)
-	{
-		for (int j{ 0 }; j < TETROMINO_STATE_WIDTH; ++j)
-		{
-			if (state[i][j]) { return false; }
+		{	
+			// left
+			if ((j + position.x) < 0 && state[i][j]) { return false; }
+			// right
+			if ((j + position.x) >= FIELD_WIDTH && state[i][j]) { return false; }
+			// bottom
+			if ((i + position.y) >= FIELD_HEIGHT && state[i][j]) { return false; }
 		}
 	}
 
-	// Tetromino is in bounds
-		// Check for other blocks
+	int linesAmount(m_lines.size());
+	int upBorder{ std::min(FIELD_HEIGHT - 1, position.y + TETROMINO_STATE_WIDTH - 1) };
+	int downBorder{ std::max(FIELD_HEIGHT - linesAmount, position.y) };
+	for (int i{ downBorder }; i <= upBorder; ++i)
 	{
-		int linesAmount( m_lines.size() );
-		int upBorder{ std::min(FIELD_HEIGHT - 1, delta.x + TETROMINO_STATE_WIDTH - 1) };
-		int downBorder{ std::max(FIELD_HEIGHT - linesAmount, delta.x) };
-		for (int i{ downBorder }; i <= upBorder; ++i)
+		for (int j{ 0 }; j < TETROMINO_STATE_WIDTH; ++j)
 		{
-			for (int j{ 0 }; j < TETROMINO_STATE_WIDTH; ++j)
-			{
-				if (state[i - delta.x][j])
-					if (m_lines[FIELD_HEIGHT - 1 - i][j + delta.y] != NONE)
-					{
-						return false;
-					}
-			}
+			if (state[i - position.y][j])
+				if (m_lines[FIELD_HEIGHT - 1 - i][j + position.x] != NONE)
+				{
+					return false;
+				}
 		}
 	}
 
@@ -313,8 +297,8 @@ const sf::Vector2f Game::cellCoordinate(const sf::Vector2i & cell)
 {
 	sf::Vector2f coordinates = BORDER_WIDTH + m_position;
 
-	coordinates.x += (CELL_WIDTH + 1) * cell.y;
-	coordinates.y += (CELL_WIDTH + 1) * cell.x;
+	coordinates.x += (CELL_WIDTH + 1) * cell.x;
+	coordinates.y += (CELL_WIDTH + 1) * cell.y;
 
 	return coordinates;
 }
