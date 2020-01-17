@@ -39,7 +39,7 @@ void ScreenSaver::update()
 			
 			if (tetromino->getPosition().y > WINDOW_HEIGHT + (SCREENSAWER_CELL_WIDTH * TETROMINO_STATE_WIDTH))
 			{
-				int verticalShift((1 + WINDOW_HEIGHT / SPASE_BETWEEN_TETROMINOS) * SPASE_BETWEEN_TETROMINOS);
+				int verticalShift{ (int)((1 + WINDOW_HEIGHT / SPASE_BETWEEN_TETROMINOS) * SPASE_BETWEEN_TETROMINOS) };
 
 				tetromino.reset( new Tetromino{
 					{ tetromino->getPosition().x, 
@@ -52,11 +52,11 @@ void ScreenSaver::update()
 
 void ScreenSaver::initTetrominos()
 {
-	for (int i = 0;
+	for (float i = 0;
 		i < WINDOW_WIDTH + SCREENSAWER_CELL_WIDTH * TETROMINO_STATE_WIDTH;
 		i += SPASE_BETWEEN_TETROMINOS)
 	{
-		for (int j = 0; j < WINDOW_HEIGHT; j += SPASE_BETWEEN_TETROMINOS)
+		for (float j = 0; j < WINDOW_HEIGHT; j += SPASE_BETWEEN_TETROMINOS)
 		{
 			m_tetrominos.emplace_back(new Tetromino{ sf::Vector2f(i, j), SCREENSAWER_CELL_WIDTH });
 		}

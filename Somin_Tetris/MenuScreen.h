@@ -13,7 +13,7 @@
 #include "ScreenSaver.h"
 #include "MusicManager.h"
 
-const sf::Vector2f MENU_FRAME_POSITION{ WINDOW_WIDTH / 2,  180 };
+const sf::Vector2f MENU_FRAME_POSITION{ WINDOW_WIDTH / 2,  165 };
 const sf::Vector2f STATS_FRAME_POSITION{ WINDOW_WIDTH / 2,  185 };
 
 class MenuScreen : public Screen
@@ -24,8 +24,6 @@ public:
 	virtual const GameScreen run(sf::RenderWindow &window);
 	
 	void startGame() { m_curScreen = GameScreen::PLAY; }
-
-	void updateMusicMode();
 
 private:
 	GameScreen m_curScreen{ GameScreen::MENU };

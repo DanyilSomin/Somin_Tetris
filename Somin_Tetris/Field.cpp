@@ -1,6 +1,6 @@
 #include "Field.h"
 
-Field::Field(const sf::Vector2f &position, const sf::Vector2i &size, int cellWidth)
+Field::Field(const sf::Vector2f &position, const sf::Vector2i &size, float cellWidth)
 	: m_position{ position }, m_size{ size }, m_cellWidth{ cellWidth }
 {
 	for (int i{ 0 }; i < TETROMINO_TYPES_COUNT; ++i)
@@ -22,7 +22,7 @@ void Field::draw(sf::RenderWindow & window)
 {
 	window.draw(*m_fieldSprite);
 
-	for (int i{ 0 }; i < m_lines.size(); ++i)
+	for (int i{ 0 }; i < (int)m_lines.size(); ++i)
 	{
 		for (int j{ 0 }; j < m_size.x; ++j)
 		{
@@ -89,7 +89,7 @@ bool Field::fixTetromino(const Tetromino &tetromino, const sf::Vector2i &positio
 	{
 		m_lines.push_back(std::vector<TetrominoType>( m_size.x, TetrominoType::NONE ));
 	}
-	if (m_lines.size() > m_size.y) { return false; }
+	if ((int)m_lines.size() > m_size.y) { return false; }
 
 	// Write information about new blocks to the field
 	for (int i{ 0 }; i < TETROMINO_STATE_WIDTH; ++i)
@@ -103,6 +103,8 @@ bool Field::fixTetromino(const Tetromino &tetromino, const sf::Vector2i &positio
 			}
 		}
 	}
+
+	return true;
 }
 
 const sf::Vector2i Field::findRotationShift(const TState &state, const sf::Vector2i &position)

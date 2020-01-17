@@ -41,7 +41,7 @@ void PopoutFrame::push(const std::string & str)
 	txt->setCharacterSize(FONT_SIZE);
 
 	float Y{ 0 };
-	for (int i{ 1 }; i < m_texts.size(); ++i)
+	for (int i{ 1 }; i < (int)m_texts.size(); ++i)
 	{
 		Y += m_texts[i]->getGlobalBounds().height + DISTANSE_BETWEEN;
 	}
@@ -67,11 +67,11 @@ void PopoutFrame::push(const std::string & str)
 void PopoutFrame::push(Button *btn)
 {
 	float Y{ 0 };
-	for (int i{ 1 }; i < m_texts.size(); ++i)
+	for (int i{ 1 }; i < (int)m_texts.size(); ++i)
 	{
 		Y += FONT_SIZE + DISTANSE_BETWEEN;
 	}
-	for (int i{ 0 }; i < m_buttons.size(); ++i)
+	for (int i{ 0 }; i < (int)m_buttons.size(); ++i)
 	{
 		Y += m_buttons[i]->getFontSize() + DISTANSE_BETWEEN;
 	}
@@ -90,11 +90,11 @@ void PopoutFrame::push(Button *btn)
 void PopoutFrame::push(const std::string &str, const std::function<void()>& onClick)
 {
 	float Y{ 0 };
-	for (int i{ 1 }; i < m_texts.size(); ++i)
+	for (int i{ 1 }; i < (int)m_texts.size(); ++i)
 	{
 		Y += m_texts[i]->getGlobalBounds().height + DISTANSE_BETWEEN;
 	}
-	for (int i{ 0 }; i < m_buttons.size(); ++i)
+	for (int i{ 0 }; i < (int)m_buttons.size(); ++i)
 	{
 		Y += m_buttons[i]->getFontSize() + DISTANSE_BETWEEN;
 	}

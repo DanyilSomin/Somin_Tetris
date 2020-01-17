@@ -14,6 +14,7 @@ const std::string settingsPath{ "settings.json" };
 const std::string initPlayMode{ "Casual" };
 
 const std::string initMusicMode{ "Unmuted" };
+const std::string initSoundMode{ "Unmuted" };
 
 const std::vector<std::pair<std::string, std::pair<int, int>>> playModes
 // Difficulty - Starting level - Lines before new level
@@ -35,6 +36,11 @@ public:
 	static const std::string muteMusic();
 	static const std::string unmuteMusic();
 	static const bool isMusicMuted();
+
+	static const std::string getSoundMode();
+	static const std::string muteSound();
+	static const std::string unmuteSound();
+	static const bool isSoundMuted();
 
 	static void setIfMaxScore(int score);
 	static int getMaxScore();

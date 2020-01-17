@@ -6,7 +6,7 @@
 
 MenuScreen::MenuScreen()
 {
-	updateMusicMode();
+	MusicManager::updateMusicMode();
 
 	makePopoutMenu();
 
@@ -30,7 +30,7 @@ GameScreen const MenuScreen::run(sf::RenderWindow &window)
 			}
 			else if (event.type == sf::Event::Resized)
 			{
-				float newHeight(event.size.width);
+				float newHeight((float)event.size.width);
 				newHeight /= WINDOW_WIDTH;
 				newHeight *= WINDOW_HEIGHT;
 				window.setSize({ event.size.width, static_cast<unsigned>(newHeight) });
@@ -49,18 +49,6 @@ GameScreen const MenuScreen::run(sf::RenderWindow &window)
 	}
 
 	return m_curScreen;
-}
-
-void MenuScreen::updateMusicMode()
-{
-	if (Settings::isMusicMuted())
-	{
-		MusicManager::stopMusic();
-	}
-	else
-	{
-		MusicManager::piayMusic();
-	}
 }
 
 void MenuScreen::makePopoutMenu()
@@ -87,7 +75,22 @@ void MenuScreen::makePopoutMenu()
 		{
 			btn->setText(Settings::muteMusic());
 		}
-		this->updateMusicMode();
+		MusicManager::updateMusicMode();
+	});
+	menu->push(btn);
+
+	btn = new Button(sf::Vector2f(), Settings::getSoundMode());
+	btn->setOnclickEvent([&, btn]()
+	{
+		if (Settings::isSoundMuted())
+		{
+			btn->setText(Settings::unmuteSound());
+		}
+		else
+		{
+			btn->setText(Settings::muteSound());
+		}
+		MusicManager::updateMusicMode();
 	});
 	menu->push(btn);
 

@@ -14,13 +14,44 @@ PlayScreen::PlayScreen()
 		m_texts[i]->setFillColor(sf::Color::White);
 	}
 
-	m_pauseFrame.reset(new PopoutFrame{ PAUSE_FRAME_POSITION, "PAUSE" });
-	m_pauseFrame->push("Restart", [&]() { m_game->restart(); }); 
-	m_pauseFrame->push("Main menu", [&]() { m_game->gameOver(); goToMenu(); });
+	m_pauseFrame.reset(new PopoutFrame{ PAUSE_FRAME_POSITION, "GAME PAUSED" });
+	m_pauseFrame->push("Restart", [&]() { m_game->restart(); });
+	m_pauseFrame->push("Main menu", [&]() { goToMenu(); });
+	auto btn = new Button(sf::Vector2f(), Settings::getMusicMode());
+	btn->setOnclickEvent([&, btn]()
+	{
+		if (Settings::isMusicMuted())
+		{
+			btn->setText(Settings::unmuteMusic());
+		}
+		else
+		{
+			btn->setText(Settings::muteMusic());
+		}
+		MusicManager::updateMusicMode();
+	});
+	m_pauseFrame->push(btn);
+
+	btn = new Button(sf::Vector2f(), Settings::getSoundMode());
+	btn->setOnclickEvent([&, btn]()
+	{
+		if (Settings::isSoundMuted())
+		{
+			btn->setText(Settings::unmuteSound());
+		}
+		else
+		{
+			btn->setText(Settings::muteSound());
+		}
+		MusicManager::updateMusicMode();
+	});
+	m_pauseFrame->push(btn);
+
 	m_pauseFrame->push("Back to game", [&]() { m_game->pause_start(); });
 
 	m_gameOverFrame.reset(new PopoutFrame{ PAUSE_FRAME_POSITION, "GAME OVER" });
 	m_gameOverFrame->push("Play again", [&]() { m_game->restart(); });
+
 	m_gameOverFrame->push("Main menu", [&]() { goToMenu(); });
 
 	m_pauseBtn.reset(new Button{ PAUSE_BTN_POSITION, "Pause", [&]() 
@@ -74,6 +105,16 @@ const GameScreen PlayScreen::mainLoop(sf::RenderWindow &window)
 	return m_curScreen;
 }
 
+void PlayScreen::goToMenu()
+{
+	if (!m_game->isGameOver())
+	{
+		m_game->gameOver();
+	}
+
+	m_curScreen = GameScreen::MENU;
+}
+
 void PlayScreen::handleEvents(sf::RenderWindow &window)
 {
 	sf::Event event;
@@ -107,7 +148,7 @@ void PlayScreen::handleEvents(sf::RenderWindow &window)
 		}
 		else if (event.type == sf::Event::Resized)
 		{
-			float newHeight(event.size.width);
+			float newHeight((float)event.size.width);
 			newHeight /= WINDOW_WIDTH;
 			newHeight *= WINDOW_HEIGHT;
 			window.setSize({ event.size.width, static_cast<unsigned>(newHeight) });

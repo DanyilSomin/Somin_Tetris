@@ -15,6 +15,10 @@ int main()
 	//Window creation
 	sf::RenderWindow mainWindow(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), 
 		"Somin Tetris: best clone ever!");
+
+	sf::Image icon;
+	icon.loadFromFile("Img\\icon.png"); // File/Image/Pixel
+	mainWindow.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 	
 	mainWindow.setFramerateLimit(FRAMERATE);
 

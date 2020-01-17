@@ -26,9 +26,10 @@ void GameStats::update(int linesCleared)
 		if (linesCleared == TETRIS) 
 		{ 
 			tetrisLinesAmount += TETRIS; 
-			tetrisRate = tetrisLinesAmount / static_cast<float>(line);
 		}
 
+		tetrisRate = tetrisLinesAmount / static_cast<float>(line);
+		
 		score += SCORE_POINTS_COEF[linesCleared] * (level + 1);
 	}
 }

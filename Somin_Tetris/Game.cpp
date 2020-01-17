@@ -54,6 +54,7 @@ void Game::update()
 				m_stats.update(linesCleared);
 
 				if (m_stats.getLevel() > levelBefore) { MusicManager::playLevelUp(); }
+				else if (linesCleared == TETRIS) { MusicManager::playTetris(); }
 				else { MusicManager::playDrop(); }
 			}
 			else
@@ -73,6 +74,7 @@ void Game::up()
 	if (m_field.checkPlace(m_curTetromino->nextState(), m_curTetrominoPos))
 	{
 		m_curTetromino->rotate();
+		MusicManager::playRotate();
 	}
 	else
 	{
@@ -83,10 +85,13 @@ void Game::up()
 			m_curTetrominoPos += shift;
 			m_curTetromino->rotate();
 			m_curTetromino->setPosition(m_field.cellCoordinate(m_curTetrominoPos));
+			MusicManager::playRotate();
+		}
+		else
+		{
+			MusicManager::playForbidden();
 		}
 	}
-
-	MusicManager::playRotate();
 }
 
 void Game::left()
@@ -95,9 +100,12 @@ void Game::left()
 	{
 		m_curTetrominoPos += LEFT;
 		m_curTetromino->setPosition(m_field.cellCoordinate(m_curTetrominoPos));
+		MusicManager::playMove();
 	}
-
-	MusicManager::playMove();
+	else
+	{
+		MusicManager::playForbidden();
+	}
 }
 
 void Game::right()
@@ -106,9 +114,12 @@ void Game::right()
 	{
 		m_curTetrominoPos += RIGHT;
 		m_curTetromino->setPosition(m_field.cellCoordinate(m_curTetrominoPos));
+		MusicManager::playMove();
 	}
-
-	MusicManager::playMove();
+	else
+	{
+		MusicManager::playForbidden();
+	}
 }
 
 void Game::down()
@@ -118,9 +129,8 @@ void Game::down()
 		m_curTetrominoPos += DOWN;
 		m_curTetromino->setPosition(m_field.cellCoordinate(m_curTetrominoPos));
 		m_clock.restart();
+		MusicManager::playMove();
 	}
-
-	MusicManager::playMove();
 }
 
 void Game::draw(sf::RenderWindow &window)
@@ -151,7 +161,10 @@ void Game::gameOver()
 
 void Game::restart()
 {
-	gameOver();
+	if (!isGameOver())
+	{
+		gameOver();
+	}
 
 	m_field.clear();
 

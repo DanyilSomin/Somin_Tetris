@@ -27,7 +27,7 @@ public:
 private:
 	sf::Clock m_clock;
 
-	int m_deltaTime;
+	float m_deltaTime;
 
 	std::list<std::unique_ptr<Tetromino>> m_tetrominos;
 

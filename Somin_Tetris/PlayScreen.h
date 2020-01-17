@@ -15,7 +15,7 @@
 
 const sf::Vector2f GAME_POSITION{ 10, 10 };
 const sf::Vector2f PAUSE_BTN_POSITION{ WINDOW_WIDTH - 71, WINDOW_HEIGHT - 55 };
-const sf::Vector2f PAUSE_FRAME_POSITION{ (WINDOW_WIDTH / 2), 220 };
+const sf::Vector2f PAUSE_FRAME_POSITION{ (WINDOW_WIDTH / 2), 170 };
 
 enum TextType { SCORE, LEVEL, LINE, TIME_WITHOUT_I, TETRIS_RATE, COUNT };
 
@@ -37,7 +37,7 @@ public:
 
 	const GameScreen mainLoop(sf::RenderWindow &window);
 
-	void goToMenu() { m_curScreen = GameScreen::MENU; }
+	void goToMenu();
 
 private:
 	int m_charSize{ 24 };

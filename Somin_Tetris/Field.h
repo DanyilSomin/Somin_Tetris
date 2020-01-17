@@ -13,7 +13,7 @@ const std::string FIELD_IMG_PATH{ "Img\\Field.png" };
 class Field
 {
 public:
-	Field(const sf::Vector2f &position, const sf::Vector2i &size, int cellWidth);
+	Field(const sf::Vector2f &position, const sf::Vector2i &size, float cellWidth);
 
 	void draw(sf::RenderWindow &window);
 
@@ -31,7 +31,7 @@ public:
 
 private:
 	const sf::Vector2i m_size;
-	const int m_cellWidth;
+	const float m_cellWidth;
 
 	const sf::Vector2f m_position;
 
