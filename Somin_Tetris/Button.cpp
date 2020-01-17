@@ -9,11 +9,6 @@ Button::Button(const sf::Vector2f &position,
 {
 	m_font.loadFromFile(FONT_PATH);
 
-	m_clickBuf.loadFromFile(CLICK_SOUND_PATH);
-	m_clickSound.setBuffer(m_clickBuf);
-	m_selectBuf.loadFromFile(SELECT_SOUND_PATH);
-	m_selectSound.setBuffer(m_selectBuf);
-
 	m_texts.resize(ButtonState::BTN_STATES_COUNT);
 	for (auto &txt : m_texts)
 	{
@@ -41,9 +36,8 @@ void Button::setText(const std::string &text)
 
 void Button::draw(sf::RenderWindow & window)
 {
-	update(window);
-
 	window.draw(getText());
+	update(window);
 }
 
 void Button::update(sf::RenderWindow &window)
@@ -56,7 +50,7 @@ void Button::update(sf::RenderWindow &window)
 			if (!Button::lastUpdateMouseDown)
 			{
 				Button::lastUpdateMouseDown = true;
-				m_clickSound.play();
+				MusicManager::playClick();
 				m_state = ButtonState::CLICKED;
 				m_onClickEvent();
 			}
@@ -65,7 +59,7 @@ void Button::update(sf::RenderWindow &window)
 		{
 			if (m_state == ButtonState::NORMAL)
 			{
-				m_selectSound.play();
+				MusicManager::playSelect();
 			}
 
 			m_state = ButtonState::HOWERED;
@@ -89,7 +83,7 @@ void Button::update(sf::RenderWindow &window)
 
 void Button::defaultTextInit(sf::Text &txt)
 {
-	txt.setCharacterSize(m_charSize);
+	txt.setCharacterSize(m_fontSize);
 	txt.setFont(m_font);
 	txt.setString(m_text);
 	txt.setPosition(m_position);

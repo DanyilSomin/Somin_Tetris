@@ -16,14 +16,17 @@ PlayScreen::PlayScreen()
 
 	m_pauseFrame.reset(new PopoutFrame{ PAUSE_FRAME_POSITION, "PAUSE" });
 	m_pauseFrame->push("Restart", [&]() { m_game->restart(); }); 
-	m_pauseFrame->push("Main menu", [&]() { goToMenu(); });
+	m_pauseFrame->push("Main menu", [&]() { m_game->gameOver(); goToMenu(); });
 	m_pauseFrame->push("Back to game", [&]() { m_game->pause_start(); });
 
 	m_gameOverFrame.reset(new PopoutFrame{ PAUSE_FRAME_POSITION, "GAME OVER" });
 	m_gameOverFrame->push("Play again", [&]() { m_game->restart(); });
 	m_gameOverFrame->push("Main menu", [&]() { goToMenu(); });
 
-	m_pauseBtn.reset(new Button{ PAUSE_BTN_POSITION, "Pause", [&]() { m_game->pause_start(); } });
+	m_pauseBtn.reset(new Button{ PAUSE_BTN_POSITION, "Pause", [&]() 
+	{ 
+		m_game->pause_start(); MusicManager::playPause(); 
+	} });
 }
 
 const GameScreen PlayScreen::run(sf::RenderWindow &window)
@@ -109,21 +112,24 @@ void PlayScreen::handleEvents(sf::RenderWindow &window)
 			newHeight *= WINDOW_HEIGHT;
 			window.setSize({ event.size.width, static_cast<unsigned>(newHeight) });
 		}
+		else if (event.type == sf::Event::KeyPressed
+			&& event.key.code == sf::Keyboard::R)
+		{
+			m_game->restart();
+		}
+		else if (event.type == sf::Event::KeyPressed
+			&& event.key.code == sf::Keyboard::P)
+		{
+			m_pauseBtn->click();
+		}
 	}
 }
 
 void PlayScreen::updateText()
 {
-	m_texts[TextType::SCORE]->setString(std::string{ "Score: " } + std::to_string(m_game->getStats().score));
-	m_texts[TextType::LEVEL]->setString(std::string{ "Level: " } + std::to_string(m_game->getStats().level));
-	m_texts[TextType::LINE]->setString(std::string{ "Line: " } + std::to_string(m_game->getStats().line));
-
-	int TRT{ 0 };
-	if (m_game->getStats().line) 
-	{ 
-		TRT = static_cast<float>(m_game->getStats().tetrisLinesAmount) / m_game->getStats().line * 100;
-	}
-	m_texts[TextType::TETRIS_RATE]->setString(std::string{ "TRT: " } + std::to_string(TRT));
-
-	m_texts[TextType::TIME_WITHOUT_I]->setString(std::string{ "Without I: " } + std::to_string(m_game->getStats().timeWithoutI));
+	m_texts[TextType::SCORE]->setString(std::string{ "Score: " } + std::to_string(m_game->getStats().getScore()));
+	m_texts[TextType::LEVEL]->setString(std::string{ "Level: " } + std::to_string(m_game->getStats().getLevel()));
+	m_texts[TextType::LINE]->setString(std::string{ "Line: " } + std::to_string(m_game->getStats().getLine()));
+	m_texts[TextType::TETRIS_RATE]->setString(std::string{ "TRT: " } + std::to_string(m_game->getStats().getTetrisRate()));
+	m_texts[TextType::TIME_WITHOUT_I]->setString(std::string{ "Without I: " } + std::to_string(m_game->getStats().getTimeWithoutI()));
 }

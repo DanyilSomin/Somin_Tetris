@@ -5,6 +5,7 @@
 #include <fstream>
 #include <vector>
 #include <utility>
+#include <algorithm>
 
 #include "json.hpp"
 
@@ -34,6 +35,18 @@ public:
 	static const std::string muteMusic();
 	static const std::string unmuteMusic();
 	static const bool isMusicMuted();
+
+	static void setIfMaxScore(int score);
+	static int getMaxScore();
+
+	static void setIfMaxLine(int line);
+	static int getMaxLine();
+
+	static void setIfMaxLevel(int level);
+	static int getMaxLevel();
+
+	static void setIfMaxTimeWithoutI(int timeWithoutI);
+	static int getMaxTimeWithoutI();
 
 	Settings(const std::string &path);
 	~Settings();

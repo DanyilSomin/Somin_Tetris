@@ -66,6 +66,94 @@ const bool Settings::isMusicMuted()
 	return getMusicMode() == "Muted";
 }
 
+void Settings::setIfMaxScore(int score)
+{
+	if (get().m_json.contains("MaxScore"))
+	{
+		get().m_json["MaxScore"] = std::max(static_cast<int>(get().m_json["MaxScore"]), score);
+	}
+	else
+	{
+		get().m_json["MaxScore"] = score;
+	}
+}
+
+int Settings::getMaxScore()
+{
+	if (get().m_json.contains("MaxScore"))
+	{
+		return get().m_json["MaxScore"];
+	}
+	return 0;
+}
+
+void Settings::setIfMaxLine(int line)
+{
+	if (get().m_json.contains("MaxLine"))
+	{
+		get().m_json["MaxLine"] = std::max(static_cast<int>(get().m_json["MaxLine"]), line);
+	}
+	else
+	{
+		get().m_json["MaxLine"] = line;
+	}
+}
+
+int Settings::getMaxLine()
+{
+	if (get().m_json.contains("MaxLine"))
+	{
+		return get().m_json["MaxLine"];
+	}
+	return 0;
+}
+
+void Settings::setIfMaxLevel(int level)
+{
+	if (get().m_json.contains("MaxLevel"))
+	{
+		get().m_json["MaxLevel"] = std::max(static_cast<int>(get().m_json["MaxLevel"]), level);
+	}
+	else
+	{
+		get().m_json["MaxLevel"] = level;
+	}
+}
+
+int Settings::getMaxLevel()
+{
+	if (get().m_json.contains("MaxLevel"))
+	{
+		return get().m_json["MaxLevel"];
+	}
+	return 0;
+}
+
+void Settings::setIfMaxTimeWithoutI(int timeWithoutI)
+{
+	if (get().m_json.contains("MaxTimeWithoutI"))
+	{
+		get().m_json["MaxTimeWithoutI"] = std::max(static_cast<int>(get().m_json["MaxTimeWithoutI"]), timeWithoutI);
+	}
+	else
+	{
+		get().m_json["MaxTimeWithiutI"] = timeWithoutI;
+	}
+}
+
+int Settings::getMaxTimeWithoutI()
+{
+	if (get().m_json.contains("MaxTimeWithoutI"))
+	{
+		return get().m_json["MaxTimeWithoutI"];
+	}
+	else
+	{
+		get().m_json["MaxTimeWithoutI"] = 0;
+	}
+	return 0;
+}
+
 Settings::Settings(const std::string &path)
 	: m_path{ path }
 {

@@ -11,6 +11,7 @@
 #include "Game.h"
 #include "Button.h"
 #include "PopoutFrame.h"
+#include "MusicManager.h"
 
 const sf::Vector2f GAME_POSITION{ 10, 10 };
 const sf::Vector2f PAUSE_BTN_POSITION{ WINDOW_WIDTH - 71, WINDOW_HEIGHT - 55 };
@@ -36,7 +37,7 @@ public:
 
 	const GameScreen mainLoop(sf::RenderWindow &window);
 
-	void goToMenu() { m_game->gameOver(); m_curScreen = GameScreen::MENU; }
+	void goToMenu() { m_curScreen = GameScreen::MENU; }
 
 private:
 	int m_charSize{ 24 };

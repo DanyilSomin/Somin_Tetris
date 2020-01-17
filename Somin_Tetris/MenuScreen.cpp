@@ -6,38 +6,11 @@
 
 MenuScreen::MenuScreen()
 {
-	m_music.openFromFile("Sound\\music.wav");
-	m_music.setLoop(true);
 	updateMusicMode();
 
+	makePopoutMenu();
+
 	m_screenSaver.reset( new ScreenSaver );
-
-	m_popoutFrame.reset(new PopoutFrame{ MENU_FRAME_POSITION, "SOMIN TETRIS" });
-	
-	m_popoutFrame->push("Play", [&]() { this->startGame(); });
-
-	Button *btn = new Button(sf::Vector2f(), Settings::getPlayMode());
-	btn->setOnclickEvent([&, btn]() 
-	{ 
-		btn->setText(Settings::nextPlayMode()); 
-	});
-	m_popoutFrame->push(btn);
-
-	btn = new Button(sf::Vector2f(), Settings::getMusicMode());
-	btn->setOnclickEvent([&, btn]()
-	{
-		if (Settings::isMusicMuted())
-		{
-			btn->setText(Settings::unmuteMusic());
-		}
-		else
-		{
-			btn->setText(Settings::muteMusic());
-		}
-		this->updateMusicMode();
-	});
-	m_popoutFrame->push(btn);
-
 }
 
 GameScreen const MenuScreen::run(sf::RenderWindow &window)
@@ -82,10 +55,57 @@ void MenuScreen::updateMusicMode()
 {
 	if (Settings::isMusicMuted())
 	{
-		m_music.pause();
+		MusicManager::stopMusic();
 	}
 	else
 	{
-		m_music.play();
+		MusicManager::piayMusic();
 	}
+}
+
+void MenuScreen::makePopoutMenu()
+{
+	PopoutFrame *menu{ new PopoutFrame{ MENU_FRAME_POSITION, "SOMIN TETRIS" } };
+
+	menu->push("Play", [&]() { startGame(); });
+
+	Button *btn = new Button(sf::Vector2f(), Settings::getPlayMode());
+	btn->setOnclickEvent([&, btn]()
+	{
+		btn->setText(Settings::nextPlayMode());
+	});
+	menu->push(btn);
+
+	btn = new Button(sf::Vector2f(), Settings::getMusicMode());
+	btn->setOnclickEvent([&, btn]()
+	{
+		if (Settings::isMusicMuted())
+		{
+			btn->setText(Settings::unmuteMusic());
+		}
+		else
+		{
+			btn->setText(Settings::muteMusic());
+		}
+		this->updateMusicMode();
+	});
+	menu->push(btn);
+
+	menu->push("Stats", [&]() { makePopoutStats(); });
+
+	m_popoutFrame.reset(menu);
+}
+
+void MenuScreen::makePopoutStats()
+{
+	PopoutFrame* stats{ new PopoutFrame{ STATS_FRAME_POSITION, "Statistics" } };
+	
+	stats->push(std::string{ "Max score: " } + std::to_string(Settings::getMaxScore()));
+	stats->push(std::string{ "Max line: " } + std::to_string(Settings::getMaxLine()));
+	stats->push(std::string{ "Max level: " } + std::to_string(Settings::getMaxLevel()));
+	stats->push(std::string{ "Max time without I: " } + std::to_string(Settings::getMaxTimeWithoutI()));
+
+	stats->push("Back", [&]() { makePopoutMenu(); });
+
+	m_popoutFrame.reset(stats);
 }

@@ -69,11 +69,11 @@ void PopoutFrame::push(Button *btn)
 	float Y{ 0 };
 	for (int i{ 1 }; i < m_texts.size(); ++i)
 	{
-		Y += m_texts[i]->getGlobalBounds().height + DISTANSE_BETWEEN;
+		Y += FONT_SIZE + DISTANSE_BETWEEN;
 	}
 	for (int i{ 0 }; i < m_buttons.size(); ++i)
 	{
-		Y += m_buttons[i]->getText().getGlobalBounds().height + DISTANSE_BETWEEN;
+		Y += m_buttons[i]->getFontSize() + DISTANSE_BETWEEN;
 	}
 
 	Y += m_position.y;
@@ -96,7 +96,7 @@ void PopoutFrame::push(const std::string &str, const std::function<void()>& onCl
 	}
 	for (int i{ 0 }; i < m_buttons.size(); ++i)
 	{
-		Y += m_buttons[i]->getText().getGlobalBounds().height + DISTANSE_BETWEEN;
+		Y += m_buttons[i]->getFontSize() + DISTANSE_BETWEEN;
 	}
 	
 	Y += m_position.y;
@@ -120,7 +120,7 @@ void PopoutFrame::resizeToFit()
 	}
 	for (const auto &btn : m_buttons)
 	{
-		maxX = std::max(maxX, btn->getText().getLocalBounds().width);
+		maxX = std::max(maxX, btn->getText().getGlobalBounds().width);
 	}
 
 	float Y{ 0 };
@@ -132,10 +132,8 @@ void PopoutFrame::resizeToFit()
 
 	for (const auto &btn : m_buttons)
 	{
-		Y += btn->getText().getLocalBounds().height + DISTANSE_BETWEEN;
+		Y += btn->getFontSize() + DISTANSE_BETWEEN;
 	}
-
-	//Y += m_buttons.size() * (FONT_SIZE + DISTANSE_BETWEEN);
 
 	m_size = sf::Vector2f{ maxX, Y } +BORDER_SIZE + BORDER_SIZE;
 }
