@@ -59,5 +59,6 @@ private:
 	std::vector<std::unique_ptr<sf::Text>> m_texts;
 
 	void updateText();
+	void makePouseFrame();
 };
 

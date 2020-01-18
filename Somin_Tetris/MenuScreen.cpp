@@ -8,8 +8,6 @@ MenuScreen::MenuScreen()
 {
 	MusicManager::updateMusicMode();
 
-	makePopoutMenu();
-
 	m_screenSaver.reset( new ScreenSaver );
 }
 
@@ -18,6 +16,8 @@ GameScreen const MenuScreen::run(sf::RenderWindow &window)
 	sf::Event event;
 
 	m_curScreen = GameScreen::MENU;
+
+	makePopoutMenu();
 
 	while (m_curScreen == GameScreen::MENU)
 	{

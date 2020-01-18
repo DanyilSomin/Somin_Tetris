@@ -14,41 +14,6 @@ PlayScreen::PlayScreen()
 		m_texts[i]->setFillColor(sf::Color::White);
 	}
 
-	m_pauseFrame.reset(new PopoutFrame{ PAUSE_FRAME_POSITION, "GAME PAUSED" });
-	m_pauseFrame->push("Restart", [&]() { m_game->restart(); });
-	m_pauseFrame->push("Main menu", [&]() { goToMenu(); });
-	auto btn = new Button(sf::Vector2f(), Settings::getMusicMode());
-	btn->setOnclickEvent([&, btn]()
-	{
-		if (Settings::isMusicMuted())
-		{
-			btn->setText(Settings::unmuteMusic());
-		}
-		else
-		{
-			btn->setText(Settings::muteMusic());
-		}
-		MusicManager::updateMusicMode();
-	});
-	m_pauseFrame->push(btn);
-
-	btn = new Button(sf::Vector2f(), Settings::getSoundMode());
-	btn->setOnclickEvent([&, btn]()
-	{
-		if (Settings::isSoundMuted())
-		{
-			btn->setText(Settings::unmuteSound());
-		}
-		else
-		{
-			btn->setText(Settings::muteSound());
-		}
-		MusicManager::updateMusicMode();
-	});
-	m_pauseFrame->push(btn);
-
-	m_pauseFrame->push("Back to game", [&]() { m_game->pause_start(); });
-
 	m_gameOverFrame.reset(new PopoutFrame{ PAUSE_FRAME_POSITION, "GAME OVER" });
 	m_gameOverFrame->push("Play again", [&]() { m_game->restart(); });
 
@@ -56,6 +21,7 @@ PlayScreen::PlayScreen()
 
 	m_pauseBtn.reset(new Button{ PAUSE_BTN_POSITION, "Pause", [&]() 
 	{ 
+		makePouseFrame();
 		m_game->pause_start(); MusicManager::playPause(); 
 	} });
 }
@@ -173,4 +139,42 @@ void PlayScreen::updateText()
 	m_texts[TextType::LINE]->setString(std::string{ "Line: " } + std::to_string(m_game->getStats().getLine()));
 	m_texts[TextType::TETRIS_RATE]->setString(std::string{ "TRT: " } + std::to_string(m_game->getStats().getTetrisRate()));
 	m_texts[TextType::TIME_WITHOUT_I]->setString(std::string{ "Without I: " } + std::to_string(m_game->getStats().getTimeWithoutI()));
+}
+
+void PlayScreen::makePouseFrame()
+{
+	m_pauseFrame.reset(new PopoutFrame{ PAUSE_FRAME_POSITION, "GAME PAUSED" });
+	m_pauseFrame->push("Restart", [&]() { m_game->restart(); });
+	m_pauseFrame->push("Main menu", [&]() { goToMenu(); });
+	auto btn = new Button(sf::Vector2f(), Settings::getMusicMode());
+	btn->setOnclickEvent([&, btn]()
+	{
+		if (Settings::isMusicMuted())
+		{
+			btn->setText(Settings::unmuteMusic());
+		}
+		else
+		{
+			btn->setText(Settings::muteMusic());
+		}
+		MusicManager::updateMusicMode();
+	});
+	m_pauseFrame->push(btn);
+
+	btn = new Button(sf::Vector2f(), Settings::getSoundMode());
+	btn->setOnclickEvent([&, btn]()
+	{
+		if (Settings::isSoundMuted())
+		{
+			btn->setText(Settings::unmuteSound());
+		}
+		else
+		{
+			btn->setText(Settings::muteSound());
+		}
+		MusicManager::updateMusicMode();
+	});
+	m_pauseFrame->push(btn);
+
+	m_pauseFrame->push("Back to game", [&]() { m_game->pause_start(); });
 }
