@@ -14,7 +14,7 @@ int main()
 
 	//Window creation
 	sf::RenderWindow mainWindow(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), 
-		"Somin Tetris: best clone ever!");
+		"Somin Tetris: the best clone ever!");
 
 	sf::Image icon;
 	icon.loadFromFile("Img\\icon.png"); // File/Image/Pixel
