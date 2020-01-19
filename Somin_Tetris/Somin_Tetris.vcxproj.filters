@@ -13,90 +13,114 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\UI">
+      <UniqueIdentifier>{d5761766-930d-429a-a89a-1adf8081761a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\UI">
+      <UniqueIdentifier>{9aa67fbf-87b5-4b8c-9c63-9a0443b77080}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Screens">
+      <UniqueIdentifier>{b190967f-0152-4c53-9a94-35f2c9fc3183}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Screens">
+      <UniqueIdentifier>{9de321af-1ccf-4dc7-895b-5cb3617fe832}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game">
+      <UniqueIdentifier>{b63cb5f3-1dbf-4dad-88b4-ec7ba3983032}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game">
+      <UniqueIdentifier>{51383a94-d394-4827-8efc-4613f8547e22}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Other">
+      <UniqueIdentifier>{7d925a00-4860-4bd0-a3f5-5b328d511da6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Other">
+      <UniqueIdentifier>{b067e2fc-f0f7-4d1f-89e4-1f89ed0085fc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Button.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MenuScreen.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Settings.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayScreen.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Tetromino.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\UI</Filter>
     </ClCompile>
     <ClCompile Include="PopoutFrame.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\UI</Filter>
     </ClCompile>
-    <ClCompile Include="ScreenSaver.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="MenuScreen.cpp">
+      <Filter>Source Files\Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayScreen.cpp">
+      <Filter>Source Files\Screens</Filter>
     </ClCompile>
     <ClCompile Include="Field.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Source Files\Game</Filter>
     </ClCompile>
     <ClCompile Include="GameStats.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Tetromino.cpp">
+      <Filter>Source Files\Game</Filter>
     </ClCompile>
     <ClCompile Include="MusicManager.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="ScreenSaver.cpp">
+      <Filter>Source Files\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="Settings.cpp">
+      <Filter>Source Files\Other</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Screens.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Button.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MenuScreen.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Screen.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayScreen.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Tetromino.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TetrominosStates.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Game.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="json.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\UI</Filter>
     </ClInclude>
     <ClInclude Include="PopoutFrame.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\UI</Filter>
     </ClInclude>
-    <ClInclude Include="ScreenSaver.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="MenuScreen.h">
+      <Filter>Header Files\Screens</Filter>
     </ClInclude>
-    <ClInclude Include="Field.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="PlayScreen.h">
+      <Filter>Header Files\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="Screen.h">
+      <Filter>Header Files\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="Screens.h">
+      <Filter>Header Files\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Header Files\Game</Filter>
     </ClInclude>
     <ClInclude Include="GameStats.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Tetromino.h">
+      <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="TetrominosStates.h">
+      <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Field.h">
+      <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="json.hpp">
+      <Filter>Header Files\Other</Filter>
     </ClInclude>
     <ClInclude Include="MusicManager.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="ScreenSaver.h">
+      <Filter>Header Files\Other</Filter>
     </ClInclude>
     <ClInclude Include="Settings.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Other</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
