@@ -42,6 +42,8 @@ void Button::draw(sf::RenderWindow & window)
 
 void Button::update(sf::RenderWindow &window)
 {
+	if (!window.hasFocus()) { return; }
+
 	if (m_texts[m_state].getGlobalBounds().contains(
 		static_cast<sf::Vector2f>(window.mapPixelToCoords(sf::Mouse::getPosition(window)))))
 	{

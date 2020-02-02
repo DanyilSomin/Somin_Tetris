@@ -20,7 +20,7 @@ Game::Game(const sf::Vector2f &position)
 
 void Game::update()
 {
-	if (m_isGameOver) return;
+	if (m_isGameOver || m_isPaused) return;
 	
 	if (m_clock.getElapsedTime().asMilliseconds() > m_stats.getNextDownTime())
 	{
@@ -71,6 +71,8 @@ void Game::update()
 
 void Game::up()
 {
+	if (m_isGameOver || m_isPaused) return;
+
 	if (m_field.checkPlace(m_curTetromino->nextState(), m_curTetrominoPos))
 	{
 		m_curTetromino->rotate();
@@ -96,6 +98,8 @@ void Game::up()
 
 void Game::left()
 {
+	if (m_isGameOver || m_isPaused) return;
+
 	if (m_field.checkPlace(m_curTetromino->curState(), m_curTetrominoPos + LEFT))
 	{
 		m_curTetrominoPos += LEFT;
@@ -110,6 +114,8 @@ void Game::left()
 
 void Game::right()
 {
+	if (m_isGameOver || m_isPaused) return;
+
 	if (m_field.checkPlace(m_curTetromino->curState(), m_curTetrominoPos + RIGHT))
 	{
 		m_curTetrominoPos += RIGHT;
@@ -124,6 +130,8 @@ void Game::right()
 
 void Game::down()
 {
+	if (m_isGameOver || m_isPaused) return;
+
 	if (m_field.checkPlace(m_curTetromino->curState(), m_curTetrominoPos + DOWN))
 	{
 		m_curTetrominoPos += DOWN;
@@ -154,7 +162,6 @@ void Game::draw(sf::RenderWindow &window)
 void Game::gameOver()
 {
 	m_stats.save();
-	m_stats.clear();
 	m_isGameOver = true;
 	MusicManager::playGameOver();
 }
@@ -168,6 +175,7 @@ void Game::restart()
 
 	m_field.clear();
 
+	m_stats.clear();
 	m_stats.read();
 
 	m_curTetrominoPos = INIT_TETROMINO_POS;
